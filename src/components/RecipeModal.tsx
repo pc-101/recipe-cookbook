@@ -38,9 +38,12 @@ export default function RecipeModal({ id, onClose, fetcher }: { id: number; onCl
             <div>
               <div className="mb-1 text-sm font-medium">Ingredients</div>
               <ul className="list-disc pl-5 text-sm">
-                {data.extendedIngredients.map((i) => (
-                  <li key={i.id || i.nameOriginal}>{i.original}</li>
-                ))}
+                {data.extendedIngredients.map((ingredient, index) => {
+                  const key = ingredient.id != null
+                    ? `id-${ingredient.id}-${index}`
+                    : `name-${ingredient.nameOriginal || ingredient.original}-${index}`;
+                  return <li key={key}>{ingredient.original}</li>;
+                })}
               </ul>
               <button className="btn mt-3" onClick={()=>addToShoppingFromRecipe(data)}>Add all to Shopping List</button>
             </div>
