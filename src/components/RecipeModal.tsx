@@ -63,8 +63,10 @@ function Overlay({ children, onClose }: { children: React.ReactNode; onClose?: (
   }, [onClose]);
 
   return (
-    <div className="fixed inset-0 z-50 grid place-items-center bg-black/40 p-4" onClick={onClose}>
-      <div onClick={(e)=>e.stopPropagation()}>{children}</div>
+    <div className="fixed inset-0 z-50 overflow-y-auto bg-black/40 p-4" onClick={onClose}>
+      <div className="mx-auto flex min-h-full items-center justify-center" onClick={(e)=>e.stopPropagation()}>
+        {children}
+      </div>
     </div>
   );
 }
