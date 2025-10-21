@@ -65,6 +65,21 @@ function Overlay({ children, onClose }: { children: React.ReactNode; onClose?: (
     return () => window.removeEventListener('keydown', onKey);
   }, [onClose]);
 
+  useEffect(() => {
+    if (typeof document === 'undefined') return;
+    const originalOverflow = document.body.style.overflow;
+    const originalPadding = document.body.style.paddingRight;
+    const scrollbarGap = window.innerWidth - document.documentElement.clientWidth;
+    document.body.style.overflow = 'hidden';
+    if (scrollbarGap > 0) {
+      document.body.style.paddingRight = `${scrollbarGap}px`;
+    }
+    return () => {
+      document.body.style.overflow = originalOverflow;
+      document.body.style.paddingRight = originalPadding;
+    };
+  }, []);
+
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto bg-black/40 p-4" onClick={onClose}>
       <div className="mx-auto flex min-h-full items-center justify-center" onClick={(e)=>e.stopPropagation()}>
