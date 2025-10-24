@@ -5,7 +5,15 @@ const DIETS = ['', 'vegan', 'vegetarian', 'pescetarian', 'keto', 'paleo'];
 const CUISINES = ['', 'italian', 'thai', 'mexican', 'indian', 'japanese'];
 const INTOLS = ['gluten', 'dairy', 'peanut', 'seafood', 'sesame', 'soy', 'sulfite', 'shellfish'];
 
-export default function FilterBar({ value, onChange }: { value: SearchFilters; onChange: (v: SearchFilters) => void; }) {
+type FilterBarProps = {
+  value: SearchFilters;
+  onChange: (v: SearchFilters) => void;
+  onReset?: () => void;
+};
+
+const DEFAULTS: SearchFilters = {};
+
+export default function FilterBar({ value, onChange, onReset }: FilterBarProps) {
   const [local, setLocal] = useState<SearchFilters>(value);
   useEffect(() => setLocal(value), [value]);
   useEffect(() => { const t = setTimeout(() => onChange(local), 150); return () => clearTimeout(t); }, [local]);
@@ -56,6 +64,18 @@ export default function FilterBar({ value, onChange }: { value: SearchFilters; o
           );
         })}
       </div>
+      {onReset && (
+        <button
+          type="button"
+          className="btn text-xs"
+          onClick={() => {
+            setLocal(DEFAULTS);
+            onReset();
+          }}
+        >
+          Reset filters
+        </button>
+      )}
     </div>
   );
 }

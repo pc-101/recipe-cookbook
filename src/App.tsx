@@ -23,6 +23,7 @@ export default function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [activeId, setActiveId] = useState<number | null>(null);
+  const defaultFilters: SearchFilters = {};
   const [filters, setFilters] = useState<SearchFilters>(() => {
     try {
       return JSON.parse(localStorage.getItem(FILTERS_KEY) || "{}");
@@ -94,7 +95,13 @@ export default function App() {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
           />
-          <FilterBar value={filters} onChange={setFilters} />
+        <FilterBar
+          value={filters}
+          onChange={setFilters}
+          onReset={() => {
+            setFilters(defaultFilters);
+          }}
+        />
         </div>
 
         {error && (
