@@ -4,7 +4,7 @@ A Vite + React project for discovering recipes, saving favorites to a cookbook, 
 
 ## Features
 
-- Search the Spoonacular catalog with debounced queries, filters, and infinite scrolling pagination.
+- Search the Spoonacular catalog with debounced queries, filters, infinite scrolling pagination, and a one-click filter reset.
 - Save recipes to a persistent cookbook and open a detailed lightbox with ingredients and summary.
 - Add all ingredients from a recipe to an auto-grouped shopping list with one click.
 - Light/dark mode toggle that remembers your preference and respects system settings.
@@ -33,6 +33,7 @@ A Vite + React project for discovering recipes, saving favorites to a cookbook, 
    pnpm dev
    ```
 4. Open `http://localhost:5173` and start exploring recipes. Scroll to trigger infinite loading, save favorites, and test the shopping list workflow.
+   - Use the **Reset filters** button beside the filters to jump back to the default search at any time.
 
 ## Available Scripts
 
@@ -76,3 +77,4 @@ Values prefixed with `VITE_` are exposed to the browser by Vite, so protect your
 - Cookbook favorites and shopping list items persist under `cookbook:v1` and `shopping-list:v1` keys in `localStorage`. Clear them via DevTools to reset.
 - The recipe modal uses Spoonacular’s HTML summary—sanitization is not applied, so only use keys from trusted sources.
 - Adjust Tailwind design tokens in `tailwind.config.js` to match your brand or integrate with other starters in the suite.
+- When the recipe modal is open, page scrolling is automatically locked. Close the modal or press `Esc` to release it.
